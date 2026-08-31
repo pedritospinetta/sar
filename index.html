@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando SAR | Sistema de Alerta Operativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sar-orange: #FF5A00;
+            --sar-dark: #0a0a0a;
+            --sar-panel: #1a1a1a;
+            --text-light: #F3F4F6;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--sar-dark);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: var(--sar-panel);
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+            width: 90%;
+            border-top: 4px solid var(--sar-orange);
+            position: relative;
+        }
+
+        .icon-header {
+            font-size: 3.5rem;
+            color: var(--sar-orange);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sat-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #2D3748;
+            color: #63B3ED;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            border: 1px solid #4A5568;
+        }
+
+        .sat-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #48BB78;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(72, 187, 120, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+        }
+
+        p.description {
+            color: #A0AEC0;
+            margin-bottom: 35px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .btn-android {
+            background-color: #3DDC84;
+            color: #000000;
+        }
+
+        .btn-ios {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .btn i {
+            font-size: 24px;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <i class="fa-solid fa-helicopter-symbol icon-header"></i>
+        
+        <h1>Comando SAR</h1>
+        
+        <div class="sat-indicator">
+            <div class="sat-dot"></div>
+            ENLACE SAT ACTIVO
+        </div>
+
+        <p class="description">
+            Plataforma oficial de despliegue. Descargue la aplicación operativa en su dispositivo móvil para recibir alertas tempranas, coordenadas de búsqueda y sincronización de rescate en tiempo real.
+        </p>
+
+        <div class="btn-container">
+            <a href="https://play.google.com/store/apps/details?id=com.chunkanos.alerthor&hl=es_AR&pli=1" target="_blank" class="btn btn-android">
+                <i class="fa-brands fa-android"></i>
+                Descargar para Android
+            </a>
+
+            <a href="#" target="_blank" class="btn btn-ios">
+                <i class="fa-brands fa-apple"></i>
+                Descargar para iOS
+            </a>
+        </div>
+
+        <div class="footer-text">
+            Búsqueda y Rescate | Uso Exclusivo del Personal
+        </div>
+    </div>
+
+</body>
+</html>
