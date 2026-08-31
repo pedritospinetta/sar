@@ -3,105 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comando SAR | Sistema de Alerta Operativa</title>
-    <!-- FontAwesome para los logos de Apple y Android -->
+    <title>Comando SAR | Centro de Despliegue</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@400;600&display=swap');
+
         :root {
-            --sar-orange: #FF5A00;
-            --sar-dark: #0a0a0a;
-            --sar-panel: #1a1a1a;
-            --text-light: #F3F4F6;
+            --sar-orange: #FF4500;
+            --sar-dark: #050505;
+            --sar-panel: #111111;
+            --sar-border: #333333;
+            --text-main: #E2E8F0;
+            --text-muted: #718096;
+            --hud-green: #00FF41;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--sar-dark);
-            background-image: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
-            color: var(--text-light);
+            /* Patrón de cuadrícula táctica */
+            background-image: 
+                linear-gradient(rgba(255, 69, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 69, 0, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            text-align: center;
+            padding: 20px;
         }
 
-        .container {
-            background-color: var(--sar-panel);
+        .hud-container {
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 2px;
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid var(--sar-border);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 69, 0, 0.05);
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Esquinas estilo HUD táctico */
+        .hud-container::before, .hud-container::after,
+        .hud-inner::before, .hud-inner::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 3px solid var(--sar-orange);
+            z-index: 10;
+        }
+        .hud-container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .hud-container::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .hud-inner::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .hud-inner::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .hud-inner {
             padding: 40px 30px;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-            max-width: 500px;
-            width: 90%;
-            border-top: 4px solid var(--sar-orange);
             position: relative;
         }
 
-        /* Estilos para el nuevo logo enlazado */
-        .logo-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            transition: transform 0.2s ease;
+        /* Cinta de precaución (Hazard Strip) */
+        .hazard-strip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--sar-orange),
+                var(--sar-orange) 15px,
+                #000000 15px,
+                #000000 30px
+            );
+            opacity: 0.8;
         }
 
+        .header-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-link {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+        }
+        
         .logo-link:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
         }
 
         .main-logo {
-            max-width: 100%;
+            max-width: 220px;
             height: auto;
-            max-height: 100px;
-            /* Fondo blanco sutil para que las letras azules del logo contrasten bien con el panel oscuro */
             background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 2px solid #fff;
         }
 
         h1 {
-            margin: 0 0 5px 0;
-            font-size: 26px;
+            font-family: 'Teko', sans-serif;
+            margin: 20px 0 5px 0;
+            font-size: 38px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .tech-data {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--hud-green);
+            margin-bottom: 25px;
+            border-radius: 2px;
+        }
+
+        .tech-data span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .sat-indicator {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background-color: #2D3748;
-            color: #63B3ED;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+            gap: 8px;
+            background-color: rgba(255, 69, 0, 0.1);
+            color: var(--sar-orange);
+            padding: 6px 16px;
+            border-radius: 2px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 2px;
             margin-bottom: 20px;
-            border: 1px solid #4A5568;
+            border: 1px solid var(--sar-orange);
+            text-align: center;
         }
 
         .sat-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #48BB78;
+            width: 10px;
+            height: 10px;
+            background-color: var(--sar-orange);
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: blink 1s infinite;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(72, 187, 120, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+        @keyframes blink {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--sar-orange); }
+            50% { opacity: 0.3; box-shadow: none; }
         }
 
         p.description {
-            color: #A0AEC0;
-            margin-bottom: 35px;
+            color: var(--text-main);
+            margin-bottom: 30px;
             font-size: 15px;
             line-height: 1.6;
+            text-align: center;
+            border-left: 3px solid var(--sar-orange);
+            padding-left: 15px;
+            background: linear-gradient(90deg, rgba(255,69,0,0.1) 0%, transparent 100%);
         }
 
         .btn-container {
@@ -114,78 +189,130 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
             text-decoration: none;
-            padding: 16px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            padding: 18px 24px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
             font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .btn-android {
             background-color: #3DDC84;
             color: #000000;
+            border: 2px solid #3DDC84;
         }
 
         .btn-ios {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 2px solid #ffffff;
         }
 
         .btn i {
-            font-size: 24px;
+            font-size: 26px;
         }
 
         .footer-text {
-            margin-top: 30px;
-            font-size: 11px;
-            color: #718096;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 35px;
+            text-align: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px dashed var(--sar-border);
+            padding-top: 15px;
         }
+
+        .footer-text a {
+            color: var(--sar-orange);
+            text-decoration: none;
+            font-weight: bold;
+            transition: text-shadow 0.2s;
+        }
+
+        .footer-text a:hover {
+            text-shadow: 0 0 8px rgba(255, 69, 0, 0.6);
+        }
+
+        .credits {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- Logo enlazado a la web oficial -->
-        <a href="https://www.sar-argentina.org.ar" target="_blank" class="logo-link">
-            <!-- Asegurate de tener el archivo SAR 1.png en la misma carpeta que el HTML -->
-            <img src="SAR 1.png" alt="Cuerpo Argentino de Rescate" class="main-logo">
-        </a>
-        
-        <h1>Comando SAR</h1>
-        
-        <div class="sat-indicator">
-            <div class="sat-dot"></div>
-            ENLACE SAT ACTIVO
-        </div>
+    <div class="hud-container">
+        <div class="hud-inner">
+            <div class="hazard-strip"></div>
+            
+            <div class="header-section">
+                <a href="https://www.sar-argentina.org.ar" target="_blank" class="logo-link">
+                    <img src="SAR 1.png" alt="Cuerpo Argentino de Rescate" class="main-logo">
+                </a>
+                <h1>Sistema de Alerta Operativa</h1>
+            </div>
 
-        <p class="description">
-            Plataforma oficial de despliegue. Descargue la aplicación operativa en su dispositivo móvil para recibir alertas tempranas, coordenadas de búsqueda y sincronización de rescate en tiempo real.
-        </p>
+            <!-- Panel de datos técnicos -->
+            <div class="tech-data">
+                <span><i class="fa-solid fa-location-crosshairs"></i> BASE: 34°32'S 58°42'W</span>
+                <span><i class="fa-solid fa-satellite-dish"></i> STATUS: SECURE</span>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="sat-indicator">
+                    <div class="sat-dot"></div>
+                    SAR
+                </div>
+            </div>
 
-        <div class="btn-container">
-            <a href="https://play.google.com/store/apps/details?id=com.chunkanos.alerthor&hl=es_AR&pli=1" target="_blank" class="btn btn-android">
-                <i class="fa-brands fa-android"></i>
-                Descargar para Android
-            </a>
+            <p class="description">
+                <strong>ATENCIÓN PERSONAL OPERATIVO:</strong><br>
+                Descargue la terminal móvil de gestión de emergencias. Requiere autenticación para sincronización de coordenadas, alertas tempranas y despliegue táctico en terreno.
+            </p>
 
-            <a href="#" target="_blank" class="btn btn-ios">
-                <i class="fa-brands fa-apple"></i>
-                Descargar para iOS
-            </a>
-        </div>
+            <div class="btn-container">
+                <a href="https://play.google.com/store/apps/details?id=com.chunkanos.alerthor&hl=es_AR&pli=1" target="_blank" class="btn btn-android">
+                    <i class="fa-brands fa-android"></i>
+                    Terminal Android
+                </a>
 
-        <div class="footer-text">
-            Búsqueda y Rescate | Uso Exclusivo del Personal
+                <a href="https://apps.apple.com/ar/app/alerthor/id1479267402?l=en-GB" target="_blank" class="btn btn-ios">
+                    <i class="fa-brands fa-apple"></i>
+                    Terminal iOS
+                </a>
+            </div>
+
+            <div class="footer-text">
+                RED DE COMUNICACIONES ENCRIPTADA | USO TÁCTICO
+                <div class="credits">
+                    Diseñado by <a href="https://www.alerthor.com/pagComercial" target="_blank">ZequiWEB</a> y SpinettaPedro
+                </div>
+            </div>
         </div>
     </div>
 
