@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comando SAR | Sistema de Alerta Operativa</title>
+    <!-- FontAwesome para los logos de Apple y Android -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -38,10 +39,26 @@
             position: relative;
         }
 
-        .icon-header {
-            font-size: 3.5rem;
-            color: var(--sar-orange);
-            margin-bottom: 15px;
+        /* Estilos para el nuevo logo enlazado */
+        .logo-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-link:hover {
+            transform: scale(1.03);
+        }
+
+        .main-logo {
+            max-width: 100%;
+            height: auto;
+            max-height: 100px;
+            /* Fondo blanco sutil para que las letras azules del logo contrasten bien con el panel oscuro */
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         h1 {
@@ -137,7 +154,12 @@
 <body>
 
     <div class="container">
-        <i class="fa-solid fa-helicopter-symbol icon-header"></i>
+        
+        <!-- Logo enlazado a la web oficial -->
+        <a href="https://www.sar-argentina.org.ar" target="_blank" class="logo-link">
+            <!-- Asegurate de tener el archivo SAR 1.png en la misma carpeta que el HTML -->
+            <img src="SAR 1.png" alt="Cuerpo Argentino de Rescate" class="main-logo">
+        </a>
         
         <h1>Comando SAR</h1>
         
