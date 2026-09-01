@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="SAR 1.png">
+    <title>Comando SAR | En Construcción</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@400;600&display=swap');
+
+        :root {
+            --sar-orange: #FF4500;
+            --sar-dark: #050505;
+            --sar-panel: #111111;
+            --sar-border: #333333;
+            --text-main: #E2E8F0;
+            --text-muted: #718096;
+            --hud-green: #00FF41;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--sar-dark);
+            background-image: 
+                linear-gradient(rgba(255, 69, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 69, 0, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .hud-container {
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 2px;
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid var(--sar-border);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        .hud-container::before, .hud-container::after,
+        .hud-inner::before, .hud-inner::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--sar-orange);
+        }
+        .hud-container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .hud-container::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .hud-inner::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .hud-inner::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .hud-inner {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .hazard-strip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--sar-orange),
+                var(--sar-orange) 15px,
+                #000000 15px,
+                #000000 30px
+            );
+        }
+
+        .main-logo {
+            max-width: 200px;
+            height: auto;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Teko', sans-serif;
+            margin: 10px 0;
+            font-size: 34px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 69, 0, 0.15);
+            color: var(--sar-orange);
+            padding: 8px 18px;
+            border-radius: 2px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 15px 0 25px 0;
+            border: 1px solid var(--sar-orange);
+        }
+
+        .blink-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--sar-orange);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .message {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+            border-left: 3px solid var(--sar-orange);
+            padding-left: 15px;
+            text-align: left;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, rgba(255,69,0,0.08) 0%, transparent 100%);
+        }
+
+        .footer {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px dashed var(--sar-border);
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hud-container">
+        <div class="hud-inner">
+            <div class="hazard-strip"></div>
+            
+            <a href="https://www.sar-argentina.org.ar" target="_blank">
+                <img src="SAR 1.png" alt="Cuerpo Argentino de Rescate" class="main-logo">
+            </a>
+
+            <h1>Sistema de Alerta Operativa</h1>
+
+            <div>
+                <div class="status-badge">
+                    <div class="blink-dot"></div>
+                    SISTEMA EN RECONSTRUCCIÓN
+                </div>
+            </div>
+
+            <div class="message">
+                <strong>AVISO AL PERSONAL:</strong><br>
+                La plataforma de alerta y gestión operativa se encuentra temporalmente fuera de servicio por tareas de desarrollo y actualización de infraestructura propia. 
+                <br><br>
+                Las directivas de guardia y despliegue se coordinarán por los canales de radio y mensajería habituales hasta nuevo aviso.
+            </div>
+
+            <div class="footer">
+                S.A.R. CUERPO ARGENTINO DE RESCATE | ÁREA TÉCNICA
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
